@@ -1,4 +1,4 @@
-const data = require('./decodedpng.js');
+const data = require('./decodedpng');
 import cryptoJs from 'crypto-js';
 
 let wasm: any;

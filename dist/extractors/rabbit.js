@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.main = void 0;
-const data = require('./decodedpng.js');
+const data = require('./decodedpng');
 const crypto_js_1 = __importDefault(require("crypto-js"));
 let wasm;
 let arr = new Array(128).fill(void 0);
