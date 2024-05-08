@@ -561,10 +561,9 @@ export const main = async (xrax: string|undefined) => {
   });
 
   let str = btoa(String.fromCharCode.apply(null, num));
-  let real = Z(encrypted, str);
-  console.log(real)
+  resp_json.sources=Z(encrypted, str);
 
-  return real;
+  return resp_json;
 }
 
 

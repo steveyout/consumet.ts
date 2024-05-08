@@ -513,9 +513,8 @@ const main = async (xrax) => {
         num.push(e);
     });
     let str = btoa(String.fromCharCode.apply(null, num));
-    let real = Z(encrypted, str);
-    console.log(real);
-    return real;
+    resp_json.sources = Z(encrypted, str);
+    return resp_json;
 };
 exports.main = main;
 ////main('Cp1FVcet3Kg7'); //change this value to the embed-id you want to extract from
