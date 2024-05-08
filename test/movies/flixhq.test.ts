@@ -10,13 +10,14 @@ test('returns a filled array of movies/tv', async () => {
 });
 
 test('returns a filled object of movies/tv data', async () => {
-  const data = await flixhq.fetchMediaInfo('tv/watch-vincenzo-67955');
+  const data = await flixhq.fetchMediaInfo('tv/watch-fallout-107932');
   expect(data.description).not.toEqual('');
   expect(data.episodes).not.toEqual([]);
 });
 
 test('returns a filled object of streaming sources', async () => {
-  const episodeSources = await flixhq.fetchEpisodeSources('1167571', 'tv/watch-vincenzo-67955');
+  const episodeSources = await flixhq.fetchEpisodeSources('1430080', 'tv/watch-fallout-107932');
+  console.log(episodeSources)
   expect(episodeSources.sources).not.toEqual([]);
 });
 
