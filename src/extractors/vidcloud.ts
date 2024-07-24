@@ -1,19 +1,15 @@
-import CryptoJS from 'crypto-js';
-import {main} from './rabbit';
-
+import { main } from './rabbit'
 import { VideoExtractor, IVideo, ISubtitle, Intro } from '../models';
-import { USER_AGENT, isJson, substringAfter, substringBefore } from '../utils';
+import { USER_AGENT } from '../utils';
 
 class VidCloud extends VideoExtractor {
   protected override serverName = 'VidCloud';
   protected override sources: IVideo[] = [];
 
-  private readonly host = 'https://dokicloud.one';
-  private readonly host2 = 'https://rabbitstream.net';
 
   override extract = async (
     videoUrl: URL,
-    isAlternative: boolean = false
+    _?: boolean,
   ): Promise<{ sources: IVideo[] } & { subtitles: ISubtitle[] }> => {
     const result: { sources: IVideo[]; subtitles: ISubtitle[]; intro?: Intro } = {
       sources: [],
@@ -28,11 +24,9 @@ class VidCloud extends VideoExtractor {
           'User-Agent': USER_AGENT,
         },
       };
-      let res = undefined;
-      let sources = undefined;
 
-      res= await main(id)
-      sources=res.sources
+      const res = await main(id);
+      const sources = res.sources;
 
       this.sources = sources.map((s: any) => ({
         url: s.file,

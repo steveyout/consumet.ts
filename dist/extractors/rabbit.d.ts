@@ -1,1 +1,2 @@
-export declare const main: (xrax: string | undefined) => Promise<any>;
+declare const main: (xrax: any) => Promise<any>;
+export { main };

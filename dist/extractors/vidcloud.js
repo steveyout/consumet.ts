@@ -8,9 +8,7 @@ class VidCloud extends models_1.VideoExtractor {
         super(...arguments);
         this.serverName = 'VidCloud';
         this.sources = [];
-        this.host = 'https://dokicloud.one';
-        this.host2 = 'https://rabbitstream.net';
-        this.extract = async (videoUrl, isAlternative = false) => {
+        this.extract = async (videoUrl, _) => {
             var _a;
             const result = {
                 sources: [],
@@ -25,10 +23,8 @@ class VidCloud extends models_1.VideoExtractor {
                         'User-Agent': utils_1.USER_AGENT,
                     },
                 };
-                let res = undefined;
-                let sources = undefined;
-                res = await (0, rabbit_1.main)(id);
-                sources = res.sources;
+                const res = await (0, rabbit_1.main)(id);
+                const sources = res.sources;
                 this.sources = sources.map((s) => ({
                     url: s.file,
                     isM3U8: s.file.includes('.m3u8'),

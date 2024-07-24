@@ -32,11 +32,11 @@ class Gogoanime extends models_1.AnimeParser {
                     var _a;
                     searchResult.results.push({
                         id: (_a = $(el).find('p.name > a').attr('href')) === null || _a === void 0 ? void 0 : _a.split('/')[2],
-                        title: $(el).find('p.name > a').attr('title'),
+                        title: $(el).find('p.name > a').text(),
                         url: `${this.baseUrl}/${$(el).find('p.name > a').attr('href')}`,
                         image: $(el).find('div > a > img').attr('src'),
                         releaseDate: $(el).find('p.released').text().trim(),
-                        subOrDub: $(el).find('p.name > a').text().toLowerCase().includes('dub')
+                        subOrDub: $(el).find('p.name > a').text().toLowerCase().includes('(dub)')
                             ? models_1.SubOrSub.DUB
                             : models_1.SubOrSub.SUB,
                     });
@@ -154,6 +154,14 @@ class Gogoanime extends models_1.AnimeParser {
                             sources: await new extractors_1.StreamSB(this.proxyConfig, this.adapter).extract(serverUrl),
                             download: `https://${serverUrl.host}/download${serverUrl.search}`,
                         };
+                    case models_1.StreamingServers.StreamWish:
+                        return {
+                            headers: {
+                                Referer: serverUrl.href,
+                            },
+                            sources: await new extractors_1.StreamWish(this.proxyConfig, this.adapter).extract(serverUrl),
+                            download: `https://${serverUrl.host}/download${serverUrl.search}`,
+                        };
                     default:
                         return {
                             headers: { Referer: serverUrl.href },
@@ -175,6 +183,9 @@ class Gogoanime extends models_1.AnimeParser {
                         break;
                     case models_1.StreamingServers.StreamSB:
                         serverUrl = new URL($('div.anime_video_body > div.anime_muti_link > ul > li.streamsb > a').attr('data-video'));
+                        break;
+                    case models_1.StreamingServers.StreamWish:
+                        serverUrl = new URL($('div.anime_video_body > div.anime_muti_link > ul > li.streamwish > a').attr('data-video'));
                         break;
                     default:
                         serverUrl = new URL(`${$('#load_anime > div > div > iframe').attr('src')}`);
